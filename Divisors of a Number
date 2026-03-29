@@ -1,0 +1,17 @@
+class Solution {
+    public int[] divisors(int n) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        for(int i=1;i<=n;i++){
+            if(n % i == 0){
+                ans.add(i);
+            }
+        }
+        int[] res = new int[ans.size()];
+        int i = 0;
+        for(int num : ans){
+            res[i] = num;
+            i++;
+        }
+        return res;
+    }
+}
