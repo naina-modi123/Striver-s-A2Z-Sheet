@@ -1,0 +1,12 @@
+class Solution {
+    public int countDigit(int n) {
+        int dummy = n;
+        int count = 0;
+        while(dummy > 0){
+            int digit = dummy % 10;
+            dummy = dummy / 10;
+            count++;
+        }
+        return count;
+    }
+}
