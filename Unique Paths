@@ -1,0 +1,41 @@
+class Solution {
+    public int uniquePath_memo(int row, int col, int m, int n, int[][] dp){
+        if(row >= m || col >= n) return 0;
+        if(row == m-1 && col == n-1) return 1;
+        if(dp[row][col] != -1) return dp[row][col];
+        int rightPath = uniquePath_memo(row, col+1,m,n, dp);
+        int downPath = uniquePath_memo(row+1, col, m, n, dp);
+        return dp[row][col] = rightPath+downPath;
+    }
+    public int uniquePath_tab(int m, int n, int[][] dp){
+        dp[m-1][n-1] = 1;
+        for(int row = m-1;row >=0;row--){
+            for(int col = n-1;col >=0;col--){
+                if(row == m-1 && col == n-1) continue;
+                int rightPath = 0, downPath = 0;
+                if(row+1 < m) downPath = dp[row+1][col];
+                if(col + 1 < n) rightPath = dp[row][col+1];
+                dp[row][col] = rightPath+downPath;
+            }
+        }
+        return dp[0][0];
+    }
+    public int uniquePath_rec(int row, int col, int m, int n){
+        if(row >= m || col >= n) return 0;
+        if(row == m-1 && col == n-1) return 1;
+        int rightPath = uniquePath_rec(row, col+1,m,n);
+        int downPath = uniquePath_rec(row+1, col, m, n);
+        return rightPath+downPath;
+    }
+    public int uniquePaths(int m, int n) {
+        //return uniquePath_rec(0,0,m,n);
+        int[][] dp = new int[m+1][n+1];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                dp[i][j] = -1;
+            }
+        }
+        
+        return uniquePath_tab(m,n, dp);
+    }
+}
